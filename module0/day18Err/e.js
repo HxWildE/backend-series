@@ -9,3 +9,5 @@ async function test() {
 // test() -->unhanled err deta h
 console.log(3)
 test().catch(console.log)
+
+console.log("")
