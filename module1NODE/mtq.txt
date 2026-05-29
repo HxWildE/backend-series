@@ -1,0 +1,9 @@
+Microtasks Are Different
+    Microtask queue:
+    NOT a normal phase queue
+    It has VIP priority.
+
+Node drains it:
+    after sync code
+    after every callback
+    before next phase
