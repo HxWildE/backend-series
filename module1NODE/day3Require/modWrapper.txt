@@ -1,0 +1,23 @@
+Tum likhte ho:
+
+// app.js
+
+const x = 10;
+console.log(x);
+
+Tum sochte ho Node ye execute karta hai.
+Nahi.
+
+Node secretly isko wrap karta hai.
+Actually Node internally kuch aisa banata hai:
+
+(function(exports, require, module, __filename, __dirname){
+    const x = 10;
+    console.log(x);
+});
+
+Isko bolte hain:
+
+Module Wrapper
+Har file ke around Node ek invisible function laga deta hai.
+

@@ -1,0 +1,26 @@
+Golden Rule
+require() always returns:
+whatever module.exports contains
+
+Repeat:
+
+require()
+returns
+module.exports
+
+Entire CommonJS revolves around this.
+___________X_______________X_______________
+
+
+Initially:
+exports === module.exports
+
+Both point to same object.
+Example:
+exports.add = add;
+exports.sub = sub;
+
+Equivalent to:
+module.exports.add = add;
+module.exports.sub = sub;
+

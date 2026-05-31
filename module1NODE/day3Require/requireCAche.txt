@@ -1,0 +1,29 @@
+The Three Things To Never Forget From Today
+1
+
+Every file gets wrapped.
+(function(exports, require, module, __filename, __dirname){
+ const a = ""
+});
+
+Invisible.
+
+2
+
+Files have private scope.
+const secret = 123;
+Other files cannot access it.
+
+3
+
+require() uses cache.
+
+First load:
+
+execute
+cache
+return
+
+Later loads:
+
+return cached version
