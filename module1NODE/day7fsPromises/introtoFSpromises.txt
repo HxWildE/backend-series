@@ -1,0 +1,47 @@
+Mental Model
+
+Old:
+
+fs.readFile()
+↓
+callback later
+
+New:
+
+fs.readFile()
+↓
+returns Promise
+↓
+await
+
+Same work.
+Different interface.
+
+const fs =
+require("fs/promises");  mandatory
+
+JSON.parse( string, function )
+
+const myInfo = `{
+   "Name": "GFG", 
+   "Age":22,
+   "Department" : "Computer Science and Engineering",
+   "Year": "3rd"
+}`
+
+const Obj = JSON.parse(myInfo);
+console.log(Obj.Name)  
+console.log(Obj.Age)
+
+JSON.stringify(value, replacer, space);
+
+const myInfo = {
+   Name: "GFG", 
+   Age:22,
+   Department : "Computer Science and Engineering",
+   Year: "3rd"
+}
+const Obj = JSON.stringify(myInfo);
+console.log(Obj)
+
+op: 

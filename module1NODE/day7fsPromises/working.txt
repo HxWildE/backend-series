@@ -1,0 +1,58 @@
+CORE:
+fs.readFile()
+does not read the file and then return a Promise.
+It returns a Promise immediately,
+while the file is read in the background by libuv workers.
+
+💯 Bilkul. Tu finally correct mental model pakad raha hai.
+
+Code:
+
+console.log("A");
+const p = fs.readFile("a.txt", "utf8");
+console.log("B");
+
+Execution:
+
+Step 1
+console.log("A");
+
+Output:
+A
+
+Step 2
+const p = fs.readFile(...)
+
+Iss ek line ke andar multiple cheezein hoti hain.
+
+(a)Promise object banta hai.
+Promise { <pending> } ✅ Yes
+
+(b)Node/libuv ko bola jata hai:
+Read a.txt
+✅ Yes
+
+(c)
+Libuv task queue/threadpool me kaam daal deta hai.
+Worker free hua to kaam uthayega.
+✅ Yes
+
+(d)
+Actual disk read start ho bhi sakti hai ya queue me wait bhi kar sakti hai.
+Depends.
+✅ Yes
+
+Step 3
+JS ko result nahi mila abhi.
+But JS bolta hai:
+Theek hai, mere paas Promise hai.
+Main aage badhta hu.
+
+Step 4
+console.log("B");
+Output:
+
+A
+B
+
+((give me promise immediately and start reading file in background))

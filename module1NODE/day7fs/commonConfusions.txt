@@ -1,0 +1,10 @@
+Actually:  fs.readFile("sample.txt")
+
+Looks for sample.txt relative to process.cwd()
+NOT relative to code file.
+Kabhi same folder hone par bhi fail kar sakta hai agar cwd alag ho.
+
+Isliye production code me:
+path.join(__dirname, "sample.txt")
+bahut common hai.
+

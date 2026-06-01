@@ -1,0 +1,30 @@
+Ye saare:
+
+readFile
+writeFile
+appendFile
+readdir
+stat
+unlink
+rename
+mkdir
+
+internally libuv thread pool use karte hain.
+
+Matlab ye direct event loop pe nahi chal rahe.
+
+Flow:
+
+JS
+ ↓
+Node API
+ ↓
+libuv threadpool
+ ↓
+OS filesystem
+ ↓
+callback queue
+ ↓
+event loop
+ ↓
+your callback

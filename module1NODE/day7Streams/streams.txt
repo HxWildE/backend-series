@@ -1,0 +1,17 @@
+Stream Events You Must Know
+data
+end
+error
+finish
+
+data : chunk received
+
+end : reading finished
+
+finish : writing finished
+
+error : something failed
+
+r.on() /ws.on() listesn for them
+
+

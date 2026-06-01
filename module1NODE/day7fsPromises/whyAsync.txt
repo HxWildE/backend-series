@@ -1,0 +1,466 @@
+Good. Forget `fs/promises` for 10 min.
+
+Tu abhi ek hi cheez pe focus kar:
+
+# Question
+Jab hum likhte hain:
+
+```js
+fs.readFile("a.txt", cb);
+```
+
+to file kaun padh raha hai?
+JS?
+Noe?
+Event Loop?
+OS?
+Thread?
+
+Ye samajh gaya to pura FS samajh jayega.
+
+---
+
+# Step 0: Reality
+
+Suppose file hai:
+
+```txt
+a.txt
+```
+ke andar:
+
+```txt
+HELLO
+```
+
+Ab:
+
+```js
+fs.readFile("a.txt", cb);
+```
+
+File disk pe hai.
+Disk se data nikalna expensive kaam hai.
+Milliseconds lag sakte hain.
+
+---
+
+# Agar Node khud padhta
+
+Imagine:
+
+```js
+console.log("A");
+
+read huge file
+
+console.log("B");
+```
+
+Output:
+
+```txt
+A
+
+(wait 3 sec)
+
+B
+```
+
+Pure server freeze.
+1000 users?
+Sab wait karenge.
+Backend mar gaya.
+
+---
+
+# Isliye Node trick karta hai
+
+Node bolta hai:
+
+```txt
+Main khud file nahi padhunga.
+```
+
+Instead:
+
+```txt
+Koi aur padhega.
+```
+
+---
+
+# Enter libuv
+Node ke andar ek C library hai:
+
+```txt
+libuv
+```
+
+Ye bahut important naam hai.
+Node ka secret worker.
+
+---
+
+Mental model:
+
+```txt
+JavaScript
+     ↓
+    Node
+     ↓
+   libuv
+     ↓
+ Operating System
+```
+
+---
+
+# First Time Ever
+
+Code:
+
+```js
+console.log("A");
+fs.readFile("a.txt", cb);
+console.log("B");
+```
+
+Execution:
+### JS prints:
+
+```txt
+A
+```
+
+Then:
+
+```js
+fs.readFile(...)
+```
+
+Node dekhta hai.
+
+Aur bolta hai:
+
+```txt
+Mujhe file padhni hai.
+```
+
+Node khud nahi padhta.
+
+Wo libuv ko bolta hai:
+
+```txt
+Bhai file padh ke bata.
+```
+
+---
+
+# Thread Pool
+
+Libuv ke paas workers hote hain.
+
+Default:
+
+```txt
+4 worker threads
+```
+
+Imagine:
+
+```txt
+Worker1
+Worker2
+Worker3
+Worker4
+```
+
+Jaise office employees.
+
+---
+
+Node bolta hai:
+
+```txt
+Worker1,
+ja a.txt padh.
+```
+
+Worker1 chala gaya.
+
+---
+
+# Important
+
+JS rukti nahi.
+
+Immediately next line.
+
+```js
+console.log("B");
+```
+
+prints:
+
+```txt
+B
+```
+
+Output so far:
+
+```txt
+A
+B
+```
+
+---
+
+# Meanwhile
+
+Background me:
+
+```txt
+Worker1
+↓
+OS
+↓
+Disk
+↓
+Read file
+```
+
+chal raha hai.
+
+---
+
+# Jab file mil gayi
+
+Worker1 bolta hai:
+
+```txt
+Done.
+```
+
+Ab callback execute nahi hota instantly.
+
+Ye bahut important hai.
+
+---
+
+Worker callback ko daalta hai:
+
+```txt
+Completed Queue
+```
+
+(Event loop wali duniya me)
+
+---
+
+# Event Loop
+
+Jab JS stack empty milta hai:
+
+```txt
+Main free hoon.
+```
+
+Event Loop bolta hai:
+
+```txt
+Achha callback pending hai.
+```
+
+Aur callback chalata hai.
+
+```js
+cb(null,"HELLO")
+```
+
+---
+
+Output:
+
+```txt
+A
+B
+HELLO
+```
+
+---
+
+# Complete Flow
+
+```txt
+JS
+ │
+ │ fs.readFile
+ ▼
+Node
+ │
+ ▼
+libuv
+ │
+ ▼
+Thread Pool Worker
+ │
+ ▼
+Operating System
+ │
+ ▼
+Disk
+ │
+ ▼
+File Read Complete
+ │
+ ▼
+Callback Queue
+ │
+ ▼
+Event Loop
+ │
+ ▼
+Callback Execute
+```
+
+---
+
+# Ab Async Version
+
+```js
+const p =
+fs.readFile("a.txt","utf8");
+```
+
+Same thing.
+
+Literally same.
+
+Bas callback nahi diya.
+
+---
+
+Node internally:
+
+```txt
+Promise banata hai
+```
+
+and
+
+```txt
+libuv ko kaam deta hai
+```
+
+---
+
+Worker file padh leta hai.
+
+Phir:
+
+```txt
+resolve(data)
+```
+
+kar deta hai.
+
+Promise fulfilled.
+
+---
+
+Agar:
+
+```js
+await p;
+```
+
+hai.
+
+To async function pause rehti hai.
+
+Pure Node nahi.
+
+Sirf us function ka remaining part.
+
+---
+
+# Biggest Misconception
+
+People think:
+
+```js
+await fs.readFile(...)
+```
+
+means
+
+```txt
+Node wait kar raha hai
+```
+
+Wrong.
+
+Actually:
+
+```txt
+File worker thread padh raha hai.
+```
+
+Node dusre requests handle kar raha hota hai.
+
+---
+
+# Real Backend Example
+
+100 users.
+
+Sab request bhejte:
+
+```js
+fs.readFile(...)
+```
+
+Node:
+
+```txt
+User1 -> worker
+User2 -> worker
+User3 -> worker
+User4 -> worker
+```
+
+Background me kaam.
+
+Main JS thread mostly free.
+
+Isi wajah se Node scalable lagta hai.
+
+---
+
+# Ab ek question
+
+Code:
+
+```js
+console.log("1");
+
+fs.readFile("a.txt", () => {
+  console.log("2");
+});
+
+console.log("3");
+
+setTimeout(() => {
+  console.log("4");
+}, 0);
+
+console.log("5");
+```
+
+Without guessing:
+
+1. Pehle synchronous lines kaunsi chalengi?
+2. File padhne ka kaam kaun karega?
+3. Callback ko queue me kaun dalega?
+4. `"2"` aur `"4"` me kaun pehle aane ke chances zyada hain, aur kyun? (exact guarantee nahi, reasoning chahiye)
