@@ -185,7 +185,7 @@ Attributes in "Works_On"
 As we have seen in the "Works_On" relationship, the attributes called "Hours" are important. They indicate how much time an employee dedicates to a project. If John works 30 hours on Project Z, the attribute "Hours" would hold that data in the relationship set entry linking John and Project Z.
 
 Mapping Cardinalities
-Mapping cardinalities indicate the number of associations between entities. Mapping cardinalities play an important role in accurately describing real-world constraints.
+Mappin cardinalities indicate the number of associations between entities. Mapping cardinalities play an important role in accurately describing real-world constraints.
 
 One-to-One (1:1) − A one-to-one relationship means one entity in set A is related to one entity in set B. For example, each "Principal" (entity type) will have only one "School" (another entity type).
 One-to-Many (1 : N) − A one-to-many relationship means one entity in set A is connected to multiple entities in set B. In the eBook example, each "Employee" may work on several "Projects."

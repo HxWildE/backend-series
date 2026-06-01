@@ -12,7 +12,7 @@ rs.pipe(ws);
 // Node automatically chunks forward karta rehta hai.
 
 
-// input.txt
+// input.t
 //     ↓
 // Readable
 //     ↓
