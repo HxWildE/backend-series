@@ -155,7 +155,7 @@ Employee Relation:
 
 Fname	Minit	Lname	Ssn	Bdate	Address	Sex	Salary	Super_ssn	Dno
 Project Relation
-sad
+sa
 Pname	Pnumber	Plocation	Dnum
 Works_On relation
 
