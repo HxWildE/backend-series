@@ -1,5 +1,5 @@
 //use node "filename.js" to run on terminal
-//paht resolvign ki dikkat hoti h verna 
+//path resolvign ki dikkat hoti h verna 
 
 // fs.readFile(path, encoding, callback)
 
