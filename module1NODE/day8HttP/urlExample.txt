@@ -1,0 +1,15 @@
+Real backend mein bhi same idea hai:
+
+Incoming:
+GET /products?id=101
+Host: api.myapp.com
+
+Node ke paas:
+req.url = /products?id=101
+req.headers.host = api.myapp.com
+
+Dono mila ke:
+
+https://api.myapp.com/products?id=101
+
+banaya taaki URL parser use kar sake.
