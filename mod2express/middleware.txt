@@ -1,0 +1,48 @@
+
+express json built in middleware to parse
+request into json and putt in req body
+
+Middleware types
+1. Application middleware
+app.use()
+
+whole app ke liye.
+
+2. Route middleware
+
+Specific route:
+
+app.get(
+"/admin",
+adminAuth,
+handler
+)
+
+3. Error middleware
+
+Special:
+
+(err,req,res,next)=>{
+
+}
+
+4 parameters.
+
+Flow of middlewaerre Usage
+Request
+ |
+CORS middleware
+ |
+JSON parser
+ |
+Authentication
+ |
+Authorization
+ |
+Validation
+ |
+Controller
+ |
+Database
+ |
+Response

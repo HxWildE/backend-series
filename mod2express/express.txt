@@ -1,0 +1,57 @@
+Express.js is a backend framework for Node.js used to build:
+web servers ,REST APIs,backend applications
+
+It gives:
+routing middleware system
+request/response helpers cleaner architecture
+
+Client
+  |
+  |
+HTTP Request
+  |
+  |
+Node HTTP Server
+  |
+  |
+Express layer
+  |
+  |
+Your logic
+
+app.get("/users",(req,res)=>{
+    
+}); 
+break it down  like :
+
+app
+ |
+ |-- HTTP method
+ |
+ GET - -->  URL path
+                |
+                /users -->callback
+
+req  == request coming from client contains:
+params body headers query               
+
+res == response we send back
+contains: send()  json() status()
+
+Difference:
+res.send() general response
+res.json() API response
+bcoz BackEnd mostly sends json Database
+
+*EXpress is a wrapper over node http
+
+GET /users -> app.get("/users",(req,res)=>{});
+
+POST /users -> app.post("/users",(req,res)=>{ });
+
+PUT /users/:id
+app.put("/users/:id",(req,res)=>{});
+
+DELETE /users/:id
+app.delete("/users/:id",(req,res)=>{});
+
