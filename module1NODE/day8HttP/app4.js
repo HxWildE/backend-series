@@ -3,7 +3,7 @@
 const http = require("http");
 const server = http.createServer((req,res)=>{
 
-    if(req.url==="/" && req.method==="GET"){
+if(req.url==="/" && req.method==="GET"){
     res.end("Home");
 }
 
@@ -21,7 +21,6 @@ else{
 }
 
 });
-
 
 server.listen(3000);
 
