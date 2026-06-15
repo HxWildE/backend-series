@@ -45,6 +45,8 @@ app.get("/users/:id",(req,res)=>{
 
 })
 
+
+
 // users/:id  ---> such ":" parameters point to 
 //           ^
 //           dynamic value
