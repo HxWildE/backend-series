@@ -1,4 +1,5 @@
 {
     "files.hotExit": "onExitAndWindowClose",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "mermaidChart.showGenerateDiagramCodeLens": false
 }
