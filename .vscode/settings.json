@@ -1,0 +1,4 @@
+{
+    "files.hotExit": "onExitAndWindowClose",
+    "editor.formatOnSave": true
+}

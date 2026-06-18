@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Auto Commit and Push",
+            "type": "shell",
+            "command": "node",
+            "args": [
+                "${workspaceFolder}/.vscode/auto-commit-agent.js"
+            ],
+            "problemMatcher": [],
+            "runInBackground": false,
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "runOn": "folderOpen"
+        }
+    ]
+}
