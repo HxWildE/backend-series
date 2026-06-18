@@ -16,7 +16,7 @@ catch(error){
     //instead we jump to the nearest err handler 
     //currently jo ki error middleware mein
     //next hep us toreach there
-    
+
 }
 };
         //array of users  
@@ -44,6 +44,14 @@ exports.createUser = (req,res)=>{
         name:req.body.name,
         age:req.body.age
     }
+
+//JUST CHECKING IF WE GOT BOTH NAME/AGE
+if(!name || !age){
+    return res.status(400).send("name and age required");
+} //validation 
+//CHECKING IF THE DATA IS VALID ACCORDING TO FORMAT 
+//INVALID DATA : PHONENUMBERS ME "CF" CHAR POST KRDIA
+//SO VALIDATING DATA IS IMPORTANT
 
     res.json(userService.addUser(newUser));
 
