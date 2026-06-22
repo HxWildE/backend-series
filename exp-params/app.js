@@ -66,31 +66,26 @@ app.get("/users/:id",(req,res)=>{
 
 // Query Params
 app.get("/users",(req,res)=>{
-
+    
     const {city} = req.query;
     let result = users;
 
     if(city){
-
         result = users.filter(
             (u)=>u.city == city
         );
-
     }
 
     res.json({
-
         success:true,
         data:result
-
     });
-
 
 });
 
 
 app.listen(3000,()=>{
 
-console.log("server running");
+    console.log("server running");
 
 });
