@@ -1,0 +1,26 @@
+async
+=
+andar await use karna hai
+
+asyncHandler
+=
+Express ko async error forward karwana hai
+
+controller
+=
+HTTP world
+
+service
+=
+business world
+
+middleware
+=
+request ke beech ka gatekeeper
+
+har jagah async hadnler use nahi hota but places where the
+request can and will definetly pass through mtlb
+req lifecycle wale functions pr toh lgega hi 
+kisi bhi point se err aaya to asyncly raise krke 
+err middleware tk lejayee
+DEPENDS WHERE AND WHERE NOT TO PUT async HANDLER
