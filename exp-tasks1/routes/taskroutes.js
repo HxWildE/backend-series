@@ -1,6 +1,8 @@
 
 const express = require('express')
 const router = express.Router()
+const auth = require("../middlewares/auth")
+const valid = require("../middlewares/validation")
 const {
     getUsers,
     createUser,
