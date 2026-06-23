@@ -16,8 +16,7 @@ require("./middlewares/errorHandler")
 app.listen(
 config.PORT,
 ()=>{
-//SERVER STARTS HERE
-
+//SERVER STARTS here 
 console.log(
 `server running ${config.PORT}`
 )
