@@ -33,7 +33,7 @@ const userslist = require("../data/users");
         const index = userslist.findIndex((x) => x.id === id);
         if (index === -1) return null;
         return userslist.splice(index, 1)[0];
-        
+
     }
 
 //simple actual input output funcs
@@ -43,4 +43,5 @@ module.exports = {
     getUser,
     updateUser,
     delUser,
-}
+}                   
+
